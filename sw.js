@@ -1,7 +1,7 @@
 /* Plan du site Placo Vaujours : works without network once opened.
    - the page (index.html) : network first, saved copy if there is no network
    - photos and 360° views (.webp) : saved on first view, then read from the phone */
-const CACHE='plan-7d914e7023';
+const CACHE='plan-9817676e92';
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(['./','index.html'])).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k.startsWith('plan-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
 self.addEventListener('fetch',e=>{const r=e.request;if(r.method!=='GET')return;const u=new URL(r.url);if(u.origin!==location.origin)return;
